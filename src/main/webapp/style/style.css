@@ -1,0 +1,23 @@
+.centerIconText{
+	display:flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.pageContent{
+	padding:24px;
+	padding-left: 36px;
+	padding-right: 36px;
+	height: calc(100vh - 62px);
+}
+
+.startEndComp{
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.img24{
+	width: 24px;
+	height: 24px;
+}
