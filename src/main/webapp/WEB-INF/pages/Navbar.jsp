@@ -1,3 +1,4 @@
+<jsp:useBean id="active" type="java.lang.String" scope="session"></jsp:useBean>
 
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#6c5ce7">
   <div class="container-fluid">
@@ -13,17 +14,17 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-lg-center align-items-center fs-5 fw-bold flex-grow-1 pe-3">
           <li class="nav-item mx-2">
-            <a class="nav-link active centerIconText" aria-current="page" href="#"><img src="images/categoryIcon.jpeg"></img>Categories</a>
+            <a class="nav-link <%=active.equals("Categories")?"active":"" %> centerIconText" aria-current="page" href="Categories"><img src="images/categoryIcon.jpeg"></img>Categories</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link centerIconText" href="#"><img src="images/usersIcon.jpeg"></img>Users</a>
+            <a class="nav-link <%=active.equals("Users")?"active":"" %> centerIconText" href="Users"><img src="images/usersIcon.jpeg"></img>Users</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link centerIconText" href="#"><img src="images/statisticIconAdmin.jpeg"></img>Statistics</a>
+            <a class="nav-link <%=active.equals("Statistics")?"active":"" %> centerIconText" href="Statistics"><img src="images/statisticIconAdmin.jpeg"></img>Statistics</a>
           </li>
         </ul>
         <div class="d-flex justify-content-center fs-5 fw-bold text-light">
-        	<a class="nav-link centerIconText" href="?action=logout"><img src="images/logoutIcon.jpeg"> Logout</img></a>
+        	<a class="nav-link centerIconText" href="Login?action=logout"><img src="images/logoutIcon.jpeg"> Logout</img></a>
         </div>
       </div>
     </div>

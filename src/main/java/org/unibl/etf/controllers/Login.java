@@ -10,7 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.compiler.NewlineReductionServletWriter;
 import org.unibl.etf.models.beans.AdminBean;
+import org.unibl.etf.models.beans.AdvisorBean;
+import org.unibl.etf.models.beans.CategoryAttributeBean;
+import org.unibl.etf.models.beans.CategoryBean;
+import org.unibl.etf.models.beans.ClientBean;
+import org.unibl.etf.models.beans.Notification;
+import org.unibl.etf.models.beans.StatisticsBean;
 import org.unibl.etf.utils.ConnectionPool;
 
 /**
@@ -36,6 +43,8 @@ public class Login extends HttpServlet {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 		session.setAttribute("loginNotification", "");
+		session.setAttribute("notification",null);
+		session.setAttribute("active","");
 		if(action==null || action.equals("")) {//pocetak
 			address="/WEB-INF/pages/login.jsp";
 		}
@@ -46,7 +55,14 @@ public class Login extends HttpServlet {
 			if(adminBean.login(username, password))
 			{
 				session.setAttribute("adminBean", adminBean);
-				address="/WEB-INF/pages/categories.jsp";
+				session.setAttribute("categoryBean", new CategoryBean());
+				session.setAttribute("categoryAttributeBean", new CategoryAttributeBean());
+				session.setAttribute("clientBean", new ClientBean());
+				session.setAttribute("advisorBean", new AdvisorBean());
+				session.setAttribute("statisticBean", new StatisticsBean());
+				//address="/WEB-INF/pages/categories.jsp";
+				response.sendRedirect("Categories");
+				return;
 			}
 			else
 				session.setAttribute("loginNotification","The user with the given username and password wasn't found!");	
@@ -62,7 +78,6 @@ public class Login extends HttpServlet {
 				address = "/WEB-INF/pages/login.jsp";
 			}
 			address="/WEB-INF/pages/categories.jsp";
-			//address="/WEB-INF/pages/404.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
