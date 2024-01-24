@@ -14,6 +14,8 @@ public class Log implements Serializable{
 	public Log() {
 		super();
 	}
+	
+	
 
 	public Log(LogLevel level, Date date, String description) {
 		super();

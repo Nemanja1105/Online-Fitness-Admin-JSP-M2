@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:useBean id="statisticBean" type="org.unibl.etf.models.beans.StatisticsBean" scope="session"></jsp:useBean>
+<jsp:useBean id="currentPage" type="java.lang.Integer" scope="session"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,7 @@
 							</tr>
 						</thead>
 						<tbody class="table-body-stat fw-semibold fs-5">
-						<% for(Log l:statisticBean.findAll()) {%>
+						<% for(Log l:statisticBean.findAll(currentPage)) {%>
 							<tr>
 								<td><span class="badge text-bg-<%=l.getLevel().getColor()%>"><%=l.getLevel() %></span></td>
 								<td><%=l.getDate() %></td>
@@ -45,15 +46,12 @@
 				</div>
 				<nav aria-label="Page navigation example">
 					<ul class="pagination justify-content-end">
-						<li class="page-item"><a class="page-link" href="#"
-							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#"
-							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-						</a></li>
+						
+						<%for(int i=1;i<=statisticBean.numOfPages();i++) {%>
+						<li class="page-item <%=currentPage==i?"active":""%>"><a class="page-link" href="?page=<%=i%>"><%=i%></a></li>
+					
+						<%}%>
+						
 					</ul>
 				</nav>
 			</div>

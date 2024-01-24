@@ -35,6 +35,11 @@ public class Login extends HttpServlet {
     public void init() throws ServletException {
     	super.init();
     	ConnectionPool.initPool(getServletContext());
+    	/*try {
+			Class.forName("org.springframework.security.crypto.password");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}*/
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

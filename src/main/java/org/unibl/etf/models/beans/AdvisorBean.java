@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.unibl.etf.dao.AdvisorDAO;
 import org.unibl.etf.dao.impl.AdvisorDAOImpl;
 import org.unibl.etf.models.dto.Advisor;
 
 public class AdvisorBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private PasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
 	private AdvisorDAO advisorDAO;
 	
 	public AdvisorBean() {
@@ -45,6 +48,7 @@ public class AdvisorBean implements Serializable {
 	
 	public boolean insert(Advisor a) {
 		try {
+			a.setPassword(passwordEncoder.encode(a.getPassword()));
 			return this.advisorDAO.insert(a);
 		} catch (Exception e) {
 			return false;

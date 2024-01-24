@@ -32,6 +32,8 @@ public class Statistics extends HttpServlet {
 		var adminBean = (AdminBean) session.getAttribute("adminBean");
 		session.setAttribute("notification", null);
 		session.setAttribute("active", "Statistics");
+		session.setAttribute("currentPage", Integer.valueOf(1));
+		var page=request.getParameter("page");
 
 		if (adminBean == null || !adminBean.isLoggedIn()) {
 			response.sendRedirect("Login");
@@ -39,6 +41,17 @@ public class Statistics extends HttpServlet {
 		}
 		if (action == null || action.equals(""))
 			address = "/WEB-INF/pages/Statistics.jsp";
+		if(page!=null && !page.isBlank()) {
+			try {
+				Integer p=Integer.parseInt(page);
+				session.setAttribute("currentPage", p);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
+		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
