@@ -11,7 +11,7 @@ public class AdminBean implements Serializable {
 	private Admin admin;
 	private boolean isLoggedIn = false;
 	private AdminDAO adminDAO;
-	//private BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
+	private BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
 
 	public AdminBean() {
 		this.adminDAO = new AdminDAOImpl();
@@ -34,7 +34,7 @@ public class AdminBean implements Serializable {
 			
 			//passwordEncoder.matches(password, admin.getPassword())
 			var admin = adminDAO.login(username, password);
-			if (admin!=null && password.equals(admin.getPassword())) {
+			if (admin!=null && passwordEncoder.matches(password, admin.getPassword())){//password.equals(admin.getPassword())) {
 				this.admin = admin;
 				this.isLoggedIn=true;
 				return true;

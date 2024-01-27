@@ -20,6 +20,7 @@ public class AdminDAOImpl implements AdminDAO {
 		this.connectionPool = ConnectionPool.getInstance();
 	}
 
+	//Long id, String username, String password, String name, String surname
 	@Override
 	public Admin login(String username, String password) throws SQLException {
 		Connection connection = null;
@@ -32,8 +33,7 @@ public class AdminDAOImpl implements AdminDAO {
 			statement = DBUtil.prepareStatement(connection, LOGIN_QUERY, false, values);
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				result = new Admin(resultSet.getLong(1), resultSet.getString(3), resultSet.getString(6),
-						resultSet.getString(2), resultSet.getString(5));
+				result = new Admin(resultSet.getLong("id"),resultSet.getString("username"),resultSet.getString("password"),resultSet.getString("name"),resultSet.getString("surname"));
 			}
 		} finally {
 			connectionPool.checkIn(connection);
